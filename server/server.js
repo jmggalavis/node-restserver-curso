@@ -1,6 +1,10 @@
 require('./config/config')
 
 const express = require('express');
+const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
+
+
 const app = express();
 
 const bodyParser = require('body-parser');
@@ -11,42 +15,35 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-app.get('/usuario', function(req, res) {
-    res.json('get Usuario')
-});
+app.use(require('./routes/usuario'));
 
-app.post('/usuario', function(req, res) {
+/* //=======================================================
+Este es el modo del profesor, que está Deprecated!!!!!
 
-    let body = req.body;
+mongoose.connect('mongodb://localhost:27017/cafe', () => {
 
-    if (body.nombre === undefined) {
+    if (err) throw err;
 
-        res.status(400).json({
-            ok: false,
-            mensaje: 'El nombre es necesario'
-        });
-
-    } else {
-        res.json({
-            persona: body
-        });
-    }
-
+    console.log('Base de datos ONLINE');
 
 });
+//=======================================================
+ */
 
-app.put('/usuario/:id', function(req, res) {
-
-    let id = req.params.id;
-
-    res.json({
-        id
-    });
+//=======================================================
+// Esta es la forma oficial que viene en la documentación
+mongoose.connect(process.env.URLDB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
 });
 
-app.delete('/usuario', function(req, res) {
-    res.json('delete Usuario')
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:')); // enlaza el track de error a la consola (proceso actual)
+db.once('open', () => {
+    console.log('Base de datos ONLINE'); // si esta todo ok, imprime esto
 });
+//=======================================================
 
 app.listen(process.env.PORT, () => {
     console.log('Escuchando puerto: ', process.env.PORT);
