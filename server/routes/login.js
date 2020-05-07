@@ -8,6 +8,10 @@ const client = new OAuth2Client(process.env.CLIENT_ID);
 
 const Usuario = require('../models/usuario');
 
+///
+let usuarioAplicacion = null;
+///
+
 const app = express();
 
 app.post('/login', (req, res) => {
@@ -51,6 +55,8 @@ app.post('/login', (req, res) => {
             usuario: usuarioDB,
             token
         });
+
+        ID_USUARIO = usuarioDB._id;
 
     });
 
@@ -118,6 +124,12 @@ app.post('/google', async(req, res) => {
                     usuario: usuarioDB,
                 }, process.env.SEED, { expiresIn: process.env.CADUCIDAD_TOKEN });
 
+                ///
+                //usuarioAplicacion = usuarioDB;
+                //process.env.ID_USUARIO = usuarioDB._id;
+
+                ///
+
                 return res.json({
                     ok: true,
                     usuario: usuarioDB,
@@ -135,8 +147,6 @@ app.post('/google', async(req, res) => {
             usuario.google = true;
             usuario.password = ':)'; //Contraseña por defecto, aunque no se podrá validar con ella
 
-            console.log(usuario);
-            console.log(googleUser);
 
             usuario.save((err, usuarioDB) => {
 
@@ -150,6 +160,12 @@ app.post('/google', async(req, res) => {
                 let token = jwt.sign({
                     usuario: usuarioDB,
                 }, process.env.SEED, { expiresIn: process.env.CADUCIDAD_TOKEN });
+
+                ///
+                //usuarioAplicacion = usuarioDB;
+                //process.env.ID_USUARIO = usuarioDB._id;
+
+                ///
 
                 return res.json({
                     ok: true,
@@ -174,3 +190,6 @@ app.post('/google', async(req, res) => {
 
 
 module.exports = app;
+///
+//module.exports = usuarioAplicacion;
+///

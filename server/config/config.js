@@ -24,7 +24,7 @@ let urlDB;
 // 24 horas 
 // 30 días 
 
-process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30;
+process.env.CADUCIDAD_TOKEN = '48h';
 
 //========================================================
 // SEED de autenticación
@@ -46,3 +46,11 @@ process.env.URLDB = urlDB;
 //========================================================
 
 process.eventNames.CLIENT_ID = process.eventNames.CLIENT_ID || '410206892641-v3kaeufv48jta977s2ub9leduq88nu9v.apps.googleusercontent.com';
+
+//========================================================
+// ID de usuario logueado:
+// Fue creado para hacer una validación cutre de estado logueado,
+// pero el profesor lo hace con el verificaToken
+//========================================================
+
+process.env.ID_USUARIO = "";

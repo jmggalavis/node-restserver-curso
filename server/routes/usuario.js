@@ -23,7 +23,7 @@ app.get('/usuario', verificaToken, (req, res) => {
     Usuario.find({ estado: true }, 'nombre email role estado google img')
         .skip(desde)
         .limit(limite)
-        .exec((err, usuarios) => {
+        .exec((err, usuario) => {
             if (err) {
                 return res.status(400).json({
                     ok: false,
@@ -35,7 +35,7 @@ app.get('/usuario', verificaToken, (req, res) => {
 
                 res.json({
                     ok: true,
-                    usuarios,
+                    usuario,
                     cuantos: conteo
                 });
 

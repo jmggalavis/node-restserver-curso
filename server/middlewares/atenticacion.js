@@ -51,9 +51,30 @@ let verificaAdmin_Role = (req, res, next) => {
 
 }
 
+// =================================
+// Verificar UserLogin
+// Fue creado para hacer una validación cutre de estado logueado,
+// pero el profesor lo hace con el verificaToken
+// =================================
+
+let verificaUser_Login = (req, res, next) => {
+
+    if (process.env.ID_USUARIO != "") {
+        next();
+        return;
+    } else {
+        return res.json({
+            ok: false,
+            err: 'El usuario debe estar logueado correctamente'
+        });
+    }
+
+}
+
 
 
 module.exports = {
     verificaToken,
-    verificaAdmin_Role
+    verificaAdmin_Role,
+    verificaUser_Login
 }

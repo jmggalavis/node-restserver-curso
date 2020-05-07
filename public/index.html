@@ -18,6 +18,10 @@
             auth2.signOut().then(function() {
                 console.log('User signed out.');
             });
+            ///////////////
+            // Aquí deberíamos resetear el ID_USUARIO
+            process.env.ID_USUARIO = "";
+            //////////////
         }
     </script>
 
