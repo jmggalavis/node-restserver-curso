@@ -13,7 +13,7 @@ const path = require('path');
 
 // default options
 //app.use(fileUpload());
-app.use(fileUpload({ useTempFiles: true }));
+app.use(fileUpload({ useTempFiles: true, tempFileDir: '/tmp/' }));
 
 
 // Se pone el método así si solo se sube una imagen sin más
